@@ -1,0 +1,14 @@
+# /* ex: set filetype=sh fenc=utf-8 expandtab ts=4 sw=4 : */
+
+DIR="$( cd -P "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd )"
+
+cd $DIR
+RUST_VERSION=$(grep -Po '(?<=FROM rust:).*' Dockerfile)
+LIBRESPOT_VERSION=$(grep -Po '(?<=ENV LIBRESPOT_VERSION=).*' Dockerfile)
+TAG="shk3bq4d/librespot:${LIBRESPOT_VERSION}-${RUST_VERSION}"
+
+echo "RUST_VERSION is $RUST_VERSION"
+echo "LIBRESPOT_VERSION is $LIBRESPOT_VERSION"
+echo "TAG is $TAG"
+
+docker ps &>/dev/null && SUDO= || SUDO=sudo
